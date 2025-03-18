@@ -6,37 +6,59 @@ import 'package:newsify/models/article_model.dart';
 import 'package:newsify/models/user_preferences_model.dart';
 
 final hiveRespositoryProvider = Provider<HiveRepository>((ref) {
-  return HiveRepository();
+  return HiveRepositoryImpl();
 });
 
-class HiveRepository {
+abstract interface class HiveRepository {
+  bool hasUserPreferences();
+
+  void setCategories(List<String> categories);
+
+  List<String> getCategories();
+
+  void saveArticle(Article article);
+
+  bool isArticleSaved(Article article);
+
+  void unsaveArticle(Article article);
+
+  List<Article> getSavedArticles();
+}
+
+class HiveRepositoryImpl implements HiveRepository {
   final userPrefsKey = "userPrefsKey";
 
+  @override
   bool hasUserPreferences() {
     final box = Hive.box<UserPreferences>(HiveBoxes.categories);
     return box.isNotEmpty;
   }
 
+  @override
   void setCategories(List<String> categories) {
     final box = Hive.box<UserPreferences>(HiveBoxes.categories);
     box.put(userPrefsKey, UserPreferences(categories: categories));
   }
 
+  @override
   List<String> getCategories() {
     final box = Hive.box<UserPreferences>(HiveBoxes.categories);
     return box.get(userPrefsKey)!.categories;
   }
 
+  @override
   void saveArticle(Article article) {
     final box = Hive.box<Article>(HiveBoxes.savedArticles);
     box.add(article);
   }
 
+  @override
   bool isArticleSaved(Article article) {
     final box = Hive.box<Article>(HiveBoxes.savedArticles);
     return box.values.where((e) => e.url == article.url).isNotEmpty;
   }
 
+  @override
   void unsaveArticle(Article article) {
     final box = Hive.box<Article>(HiveBoxes.savedArticles);
     final articleIndex = box.values.toList().indexWhere(
@@ -49,6 +71,7 @@ class HiveRepository {
     }
   }
 
+  @override
   List<Article> getSavedArticles() {
     return Hive.box<Article>(HiveBoxes.savedArticles).values.toList();
   }

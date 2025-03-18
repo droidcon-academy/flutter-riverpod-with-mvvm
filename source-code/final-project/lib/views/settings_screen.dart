@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:newsify/app/app_constants.dart';
 import 'package:newsify/providers/news_provider.dart';
@@ -6,11 +7,24 @@ import 'package:newsify/repositories/hive_repository.dart';
 import 'package:newsify/utils/extensions.dart';
 import 'package:newsify/viewmodels/settings_viewmodel.dart';
 
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      ref.invalidate(settingsViewmodel);
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selectedCategories = ref.watch(settingsViewmodel);
     return Scaffold(
       appBar: AppBar(title: Text("Settings")),
@@ -49,7 +63,8 @@ class SettingsScreen extends ConsumerWidget {
                   : () {
                       final hiveRepository = ref.read(hiveRespositoryProvider);
                       hiveRepository.setCategories(selectedCategories);
-                      ref.refresh(newsProvider);
+                      ref.invalidate(newsProvider);
+                      Navigator.pop(context);
                     },
               child: Text("Continue"),
             ),

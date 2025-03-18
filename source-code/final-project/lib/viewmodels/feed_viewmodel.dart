@@ -16,7 +16,7 @@ class FeedViewmodel extends Notifier<String> {
     state = query;
     if (state.isNotEmpty) {
       ref.read(newsRepositoryProvider).searchArticles(query);
-      ref.read(searchArticlesProvider(query));
+      ref.read(searchProvider(query));
     }
   }
 }

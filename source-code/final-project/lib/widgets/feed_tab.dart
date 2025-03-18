@@ -14,7 +14,7 @@ class FeedTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final search = ref.watch(feedViewmodel);
     final articlesAsyncValue = search.isNotEmpty
-        ? ref.watch(searchArticlesProvider(search))
+        ? ref.watch(searchProvider(search))
         : ref.watch(newsProvider);
     return Column(
       children: [
