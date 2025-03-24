@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:newsify/app/app_constants.dart';
-import 'package:newsify/utils/extensions.dart';
+import 'package:newsify/widgets/custom_list_tile.dart';
 
 class CategorySelectionScreen extends ConsumerStatefulWidget {
   const CategorySelectionScreen({super.key});
@@ -18,7 +18,15 @@ class _CategorySelectionScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Select Categories")),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        title: Text(
+          "Select categories",
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -28,11 +36,9 @@ class _CategorySelectionScreenState
                 itemBuilder: (context, index) {
                   final category = availableCategories[index];
                   final isSelected = selectedCategories.contains(category);
-                  return ListTile(
-                    title: Text(category.capitalize()),
-                    trailing: isSelected
-                        ? Icon(Icons.check_box)
-                        : Icon(Icons.check_box_outline_blank),
+                  return CustomListTile(
+                    isSelected: isSelected,
+                    text: category,
                     onTap: () {
                       setState(
                         () {
@@ -48,9 +54,19 @@ class _CategorySelectionScreenState
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: selectedCategories.isEmpty ? null : () {},
-              child: Text("Continue"),
+            Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: ElevatedButton(
+                onPressed: selectedCategories.isEmpty ? null : () {},
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
+                  ),
+                  backgroundColor: Colors.black,
+                ),
+                child: Text("Continue"),
+              ),
             ),
           ],
         ),

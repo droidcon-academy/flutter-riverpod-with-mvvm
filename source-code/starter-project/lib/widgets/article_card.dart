@@ -48,6 +48,7 @@ class ArticleCard extends StatelessWidget {
               ),
               padding: EdgeInsets.all(16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     article.title,

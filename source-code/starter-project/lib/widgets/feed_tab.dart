@@ -11,13 +11,30 @@ class FeedTab extends ConsumerWidget {
     return Column(
       children: [
         SizedBox(height: 20),
-        TextField(
-          onChanged: (value) {},
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            label: Text("Search"),
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 7.5,
+          ),
+          decoration: BoxDecoration(
+            color: Color(0xffF5F5F5),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  onChanged: (value) {},
+                  decoration: InputDecoration.collapsed(
+                    hintText: "Search",
+                  ),
+                ),
+              ),
+              Image.asset(
+                "assets/images/search.png",
+                width: 16,
+              ),
+            ],
           ),
         ),
         SizedBox(height: 20),

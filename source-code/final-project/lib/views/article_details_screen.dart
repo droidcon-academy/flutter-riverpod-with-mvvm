@@ -40,6 +40,7 @@ class ArticleDetailsScreen extends ConsumerWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     article.title,

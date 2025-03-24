@@ -12,42 +12,81 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(homeViewmodel);
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Newsify"),
+        centerTitle: false,
+        title: Text(
+          "Newsify",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               Navigator.of(context).pushNamed(AppRoutes.settings);
             },
-            icon: Icon(Icons.settings),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xffF5F5F5),
+              ),
+              child: Image.asset(
+                "assets/images/settings.png",
+                width: 20,
+              ),
+            ),
           ),
+          SizedBox(width: 10),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        child: IndexedStack(
-          index: selectedIndex,
+      body: SafeArea(
+        child: Column(
           children: [
-            FeedTab(),
-            SavedTab(),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: IndexedStack(
+                  index: selectedIndex,
+                  children: [
+                    FeedTab(),
+                    SavedTab(),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: double.maxFinite,
+              height: 1,
+              color: Colors.grey[100],
+            ),
+            Row(
+              children: [
+                for (int i = 0; i < 2; i++)
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        ref.read(homeViewmodel.notifier).changeIndex(i);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: Image.asset(
+                          "assets/images/${["home", "saved"][i]}.png",
+                          height: 38,
+                          color: selectedIndex == i
+                              ? Colors.black
+                              : Color(0xffA6A4A0),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          ref.read(homeViewmodel.notifier).changeIndex(index);
-        },
-        currentIndex: selectedIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.feed),
-            label: "Feed",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Saved",
-          ),
-        ],
       ),
     );
   }
