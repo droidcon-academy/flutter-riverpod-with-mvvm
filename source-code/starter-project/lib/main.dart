@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:newsify/app/app_routes.dart';
+import 'package:newsify/hive/hive_boxes.dart';
+import 'package:newsify/models/article_model.dart';
+import 'package:newsify/models/user_preferences_model.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserPreferencesAdapter());
+  Hive.registerAdapter(SourceAdapter());
+  Hive.registerAdapter(ArticleAdapter());
+  await Hive.openBox<UserPreferences>(HiveBoxes.categories);
+  await Hive.openBox<Article>(HiveBoxes.savedArticles);
   runApp(const ProviderScope(child: MyApp()));
 }
 
