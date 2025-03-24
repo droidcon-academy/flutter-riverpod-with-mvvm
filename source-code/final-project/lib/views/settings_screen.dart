@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:newsify/app/app_constants.dart';
 import 'package:newsify/providers/news_provider.dart';
 import 'package:newsify/repositories/hive_repository.dart';
-import 'package:newsify/utils/extensions.dart';
 import 'package:newsify/viewmodels/settings_viewmodel.dart';
+import 'package:newsify/widgets/custom_list_tile.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -27,7 +27,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final selectedCategories = ref.watch(settingsViewmodel);
     return Scaffold(
-      appBar: AppBar(title: Text("Settings")),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        title: Text(
+          "Settings",
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -37,11 +45,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 itemBuilder: (context, index) {
                   final category = availableCategories[index];
                   final isSelected = selectedCategories.contains(category);
-                  return ListTile(
-                    title: Text(category.capitalize()),
-                    trailing: isSelected
-                        ? Icon(Icons.check_box)
-                        : Icon(Icons.check_box_outline_blank),
+                  return CustomListTile(
+                    isSelected: isSelected,
+                    text: category,
                     onTap: () {
                       final newCategories = [...selectedCategories];
                       if (isSelected) {
@@ -57,16 +63,27 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: selectedCategories.isEmpty
-                  ? null
-                  : () {
-                      final hiveRepository = ref.read(hiveRespositoryProvider);
-                      hiveRepository.setCategories(selectedCategories);
-                      ref.invalidate(newsProvider);
-                      Navigator.pop(context);
-                    },
-              child: Text("Continue"),
+            Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: ElevatedButton(
+                onPressed: selectedCategories.isEmpty
+                    ? null
+                    : () {
+                        final hiveRepository =
+                            ref.read(hiveRespositoryProvider);
+                        hiveRepository.setCategories(selectedCategories);
+                        ref.invalidate(newsProvider);
+                        Navigator.pop(context);
+                      },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
+                  ),
+                  backgroundColor: Colors.black,
+                ),
+                child: Text("Continue"),
+              ),
             ),
           ],
         ),

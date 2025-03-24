@@ -9,7 +9,7 @@ final apiServiceProvider = Provider<ApiService>((ref) {
 });
 
 class ApiService {
-  final String _apiKey = 'YOU API KEY HERE';
+  final String _apiKey = 'fc9b959aad984f9792055cacf2ed0c5b';
   final String _baseUrl = 'https://newsapi.org/v2/top-headlines?country=us';
 
   Future<List<Article>> getArticlesByCategory(String category) async {

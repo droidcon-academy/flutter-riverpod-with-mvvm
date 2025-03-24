@@ -30,7 +30,8 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+        useMaterial3: false,
+        fontFamily: "SFPro",
       ),
       initialRoute:
           hasPreferences ? AppRoutes.home : AppRoutes.categorySelection,

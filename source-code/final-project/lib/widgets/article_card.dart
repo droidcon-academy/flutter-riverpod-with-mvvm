@@ -12,7 +12,7 @@ class ArticleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = Radius.circular(18);
+    final radius = Radius.circular(12);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
@@ -34,13 +34,13 @@ class ArticleCard extends StatelessWidget {
                 child: Image.network(
                   article.urlToImage!,
                   width: double.maxFinite,
-                  height: 200,
+                  height: 180,
                   fit: BoxFit.cover,
                 ),
               ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Color(0xffF7F7F7),
                 borderRadius: BorderRadius.only(
                   bottomLeft: radius,
                   bottomRight: radius,
