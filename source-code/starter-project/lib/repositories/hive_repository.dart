@@ -4,7 +4,7 @@ import 'package:newsify/hive/hive_boxes.dart';
 import 'package:newsify/models/article_model.dart';
 import 'package:newsify/models/user_preferences_model.dart';
 
-final hiveRespositoryProvider = Provider<HiveRepository>((ref) {
+final hiveRepositoryProvider = Provider<HiveRepository>((ref) {
   return HiveRepositoryImpl();
 });
 

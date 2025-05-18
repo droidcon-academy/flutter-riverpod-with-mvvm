@@ -3,7 +3,7 @@ import 'package:newsify/models/article_model.dart';
 import 'package:newsify/services/api_service.dart';
 
 final newsRepositoryProvider = Provider<NewsRepository>((ref) {
-  final apiService = ref.watch(apiServiceProvider);
+  final apiService = ref.read(apiServiceProvider);
   return NewsRepositoryImpl(apiService: apiService);
 });
 

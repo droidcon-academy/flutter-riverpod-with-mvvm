@@ -11,7 +11,6 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserPreferencesAdapter());
   Hive.registerAdapter(SourceAdapter());
-  Hive.registerAdapter(ArticleAdapter());
   await Hive.openBox<UserPreferences>(HiveBoxes.categories);
   await Hive.openBox<Article>(HiveBoxes.savedArticles);
   runApp(const ProviderScope(child: MyApp()));

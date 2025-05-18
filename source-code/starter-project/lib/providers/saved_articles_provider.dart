@@ -11,7 +11,7 @@ class SavedArticlesNotifier extends Notifier<List<Article>> {
   late final HiveRepository hiveRepository;
   @override
   List<Article> build() {
-    hiveRepository = ref.read(hiveRespositoryProvider);
+    hiveRepository = ref.read(hiveRepositoryProvider);
     return hiveRepository.getSavedArticles();
   }
 
