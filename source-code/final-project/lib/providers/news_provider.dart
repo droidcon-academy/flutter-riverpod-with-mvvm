@@ -10,7 +10,7 @@ final articlesByCategoryProvider =
 });
 
 final newsProvider = FutureProvider<List<Article>>((ref) async {
-  final selectedCategories = ref.read(hiveRespositoryProvider).getCategories();
+  final selectedCategories = ref.read(hiveRepositoryProvider).getCategories();
 
   final futures = selectedCategories.map(
     (category) {

@@ -8,7 +8,7 @@ final settingsViewmodel = NotifierProvider<SettingsViewmodel, List<String>>(
 class SettingsViewmodel extends Notifier<List<String>> {
   @override
   List<String> build() {
-    return ref.read(hiveRespositoryProvider).getCategories();
+    return ref.read(hiveRepositoryProvider).getCategories();
   }
 
   void updateCategories(List<String> categories) {

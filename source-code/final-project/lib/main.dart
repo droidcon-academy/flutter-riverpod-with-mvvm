@@ -23,7 +23,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hiveRepository = ref.read(hiveRespositoryProvider);
+    final hiveRepository = ref.read(hiveRepositoryProvider);
     final hasPreferences = hiveRepository.hasUserPreferences();
     return MaterialApp(
       title: 'Newsify',

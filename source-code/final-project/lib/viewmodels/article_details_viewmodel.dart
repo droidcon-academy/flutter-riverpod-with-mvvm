@@ -20,6 +20,6 @@ class ArticleDetailsViewmodel extends FamilyNotifier<bool, Article> {
   @override
   bool build(Article arg) {
     article = arg;
-    return ref.read(hiveRespositoryProvider).isArticleSaved(article);
+    return ref.read(hiveRepositoryProvider).isArticleSaved(article);
   }
 }

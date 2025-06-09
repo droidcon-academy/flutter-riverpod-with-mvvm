@@ -64,7 +64,7 @@ class _CategorySelectionScreenState
                     ? null
                     : () {
                         final hiveRepository =
-                            ref.read(hiveRespositoryProvider);
+                            ref.read(hiveRepositoryProvider);
                         hiveRepository.setCategories(selectedCategories);
                         Navigator.of(context).pushReplacementNamed(
                           AppRoutes.home,

@@ -71,7 +71,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ? null
                     : () {
                         final hiveRepository =
-                            ref.read(hiveRespositoryProvider);
+                            ref.read(hiveRepositoryProvider);
                         hiveRepository.setCategories(selectedCategories);
                         ref.invalidate(newsProvider);
                         Navigator.pop(context);

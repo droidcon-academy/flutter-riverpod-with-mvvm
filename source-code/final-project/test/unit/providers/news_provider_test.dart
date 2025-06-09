@@ -34,7 +34,7 @@ void main() {
 
       final container = ProviderContainer(
         overrides: [
-          hiveRespositoryProvider.overrideWithValue(fakeHive),
+          hiveRepositoryProvider.overrideWithValue(fakeHive),
           newsRepositoryProvider.overrideWithValue(
             FakeNewsRepository(shouldThrow: false),
           ),
@@ -53,7 +53,7 @@ void main() {
       fakeHive.setCategories(['technology', 'sports']);
 
       final container = ProviderContainer(overrides: [
-        hiveRespositoryProvider.overrideWithValue(fakeHive),
+        hiveRepositoryProvider.overrideWithValue(fakeHive),
         newsRepositoryProvider.overrideWithValue(
           FakeNewsRepository(shouldThrow: true),
         ),
